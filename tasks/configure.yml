@@ -16,7 +16,9 @@
     name: httpd_can_network_connect
     state: true
     persistent: true
-  when: ansible_os_family | lower == "redhat"
+  when:
+    - ansible_os_family | lower == "redhat"
+    - ansible_selinux.status == 'enabled'
 
 - name: allow selinux connect to port
   seport:
@@ -24,7 +26,9 @@
     proto: tcp
     setype: http_port_t
     state: present
-  when: ansible_os_family | lower == "redhat"
+  when:
+    - ansible_os_family | lower == "redhat"
+    - ansible_selinux.status == 'enabled'
 
 - name: enable httpd service
   service:
