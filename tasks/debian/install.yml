@@ -1,0 +1,20 @@
+---
+
+- name: install apache server
+  package:
+    name: apache2
+    update_cache: true
+
+- name: install apache common package
+  package:
+    name: apache2.2-common
+    update_cache: true
+  when: ansible_distribution_major_version < '9'
+
+- name: enable required apache modules
+  apache2_module:
+    name: "{{ item }}"
+  with_items:
+    - ldap
+    - authnz_ldap
+    - proxy_http

@@ -1,0 +1,26 @@
+---
+
+kibana_auth:
+  port: 80
+  # The name of the authorization realm for a directory
+  Name: "LDAP authorization"
+  # Path to the user file
+
+  file:
+    enabled: false
+    UserFile: "/etc/httpd/.htpasswd"
+
+  ldap:
+    # Optional DN to use in binding to the LDAP server
+    BindDN: "authuser@example.com"
+    # Password for the bind DN
+    BindPassword: "password"
+    # URL specifying the LDAP search parameters
+    # An RFC 2255 URL which specifies the LDAP search parameters to use
+    # Example "ldap://ldap1.example.com ldap2.example.com/dc=..."
+    URL: 'ldap://127.0.0.1:389/DC=example,DC=com?sAMAccountName?sub?(objectClass=*)'
+    # LDAP group whose members are allowed access
+    # Group: 'CN=kibana-users,OU=groups,DC=example,DC=com'
+
+  kibana:
+    address: "http://127.0.0.1:5601"

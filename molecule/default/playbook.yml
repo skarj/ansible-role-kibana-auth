@@ -1,0 +1,12 @@
+---
+
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-kibana-auth
+      kibana_auth:
+        port: 8888
+        Name: "LDAP authorization"
+        file:
+          enabled: true
+          UserFile: "/etc/nginx/htpasswd.users"

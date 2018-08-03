@@ -1,0 +1,7 @@
+---
+
+- name: ensure dependencies are installed
+  package:
+    name:
+      - libselinux-python
+      - policycoreutils-python

@@ -1,0 +1,6 @@
+---
+
+kibana_auth:
+  apache:
+    service: apache2
+    configs: "/etc/apache2/conf-enabled"

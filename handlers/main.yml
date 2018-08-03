@@ -1,0 +1,6 @@
+---
+
+- name: restart httpd
+  service:
+    name: "{{ kibana_auth.apache.service }}"
+    state: restarted

@@ -1,0 +1,8 @@
+---
+
+- name: install httpd server
+  package:
+    name:
+      - httpd
+      - mod_ldap
+    update_cache: true

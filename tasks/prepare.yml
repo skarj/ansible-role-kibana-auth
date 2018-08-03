@@ -1,0 +1,5 @@
+---
+
+- name: prepare redhat host
+  import_tasks: redhat/prepare.yml
+  when: (ansible_os_family | lower == "redhat")

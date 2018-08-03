@@ -1,0 +1,6 @@
+---
+
+kibana_auth:
+  apache:
+    service: httpd
+    configs: "/etc/httpd/conf.d"

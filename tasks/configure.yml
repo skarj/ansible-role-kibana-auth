@@ -1,0 +1,33 @@
+---
+
+- name: deliver httpd config for kibana
+  template:
+    src: kibana.conf.j2
+    dest: "{{ kibana_auth.apache.configs }}/kibana.conf"
+    # validate: 'apachectl -t -f %s' # TODO: implement
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart httpd
+
+- name: allow selinux connections for httpd
+  seboolean:
+    name: httpd_can_network_connect
+    state: true
+    persistent: true
+  when: ansible_os_family | lower == "redhat"
+
+- name: allow selinux connect to port
+  seport:
+    ports: "{{ kibana_auth.port }}"
+    proto: tcp
+    setype: http_port_t
+    state: present
+  when: ansible_os_family | lower == "redhat"
+
+- name: enable httpd service
+  service:
+    name: "{{ kibana_auth.apache.service }}"
+    state: started
+    enabled: true

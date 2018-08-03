@@ -1,0 +1,30 @@
+<VirtualHost *:{{ kibana_auth.port }}>
+
+    ProxyPreserveHost On
+    ProxyRequests On
+    ProxyPass / {{ kibana_auth.kibana.address }}/
+    ProxyPassReverse / {{ kibana_auth.kibana.address }}/
+
+    <Location />
+
+        AuthName "{{ kibana_auth.Name }}"
+        AuthType Basic
+        AuthBasicProvider ldap{% if kibana_auth.file.enabled %} file{% endif %} 
+{% if kibana_auth.file.enabled %}
+        AuthUserFile {{ kibana_auth.file.UserFile }}
+{% endif %}
+        AuthLDAPBindDN {{ kibana_auth.ldap.BindDN }}
+        AuthLDAPBindPassword {{ kibana_auth.ldap.BindPassword }}
+        AuthLDAPURL {{ kibana_auth.ldap.URL }}
+
+{% if kibana_auth.ldap.Group is defined %}
+        AuthLDAPGroupAttribute member
+        AuthLDAPGroupAttributeIsDN On
+        Require ldap-group {{ kibana_auth.ldap.Group }}
+{% else %}
+        Require valid-user
+{% endif %}
+
+    </Location>
+
+</VirtualHost>
