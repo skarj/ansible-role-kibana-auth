@@ -52,7 +52,7 @@ An example of how to use this role:
                 ldap:
                   BindDN: "authuser@example.com"
                   BindPassword: "secret_pass"
-                  URL: 'ldap://192.168.93.187:389/DC=instinctools,DC=ru?sAMAccountName?sub?(objectClass=*)'
+                  URL: 'ldap://192.168.93.187:389/DC=example,DC=com?sAMAccountName?sub?(objectClass=*)'
                 kibana:
                   address: "http://127.0.0.1:5601"
 
